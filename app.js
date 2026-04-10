@@ -71,38 +71,38 @@ const videos = [
   },
   {
     type: "local",
-    title: "Download.mp4",
-    url: "media/Download.mp4",
+    title: "Download 0",
+    url: "media/download-0.mp4",
   },
   {
     type: "local",
-    title: "Download (1).mp4",
-    url: "media/Download (1).mp4",
+    title: "Download 1",
+    url: "media/download-1.mp4",
   },
   {
     type: "local",
-    title: "Download (2).mp4",
-    url: "media/Download (2).mp4",
+    title: "Download 2",
+    url: "media/download-2.mp4",
   },
   {
     type: "local",
-    title: "Download (3).mp4",
+    title: "Download 3",
     url: "media/Download (3).mp4",
   },
   {
     type: "local",
-    title: "Download (4).mp4",
-    url: "media/Download (4).mp4",
+    title: "Download 4",
+    url: "media/download-4.mp4",
   },
   {
     type: "local",
-    title: "Download (5).mp4",
-    url: "media/Download (5).mp4",
+    title: "Download 5",
+    url: "media/download-5.mp4",
   },
   {
     type: "local",
-    title: "Download (6).mp4",
-    url: "media/Download (6).mp4",
+    title: "Download 6",
+    url: "media/download-6.mp4",
   },
 ];
 
@@ -111,6 +111,13 @@ const searchInput = document.getElementById("searchInput");
 const videoCount = document.getElementById("videoCount");
 const emptyState = document.getElementById("emptyState");
 const template = document.getElementById("videoCardTemplate");
+const playerModal = document.getElementById("playerModal");
+const playerBackdrop = document.getElementById("playerBackdrop");
+const closePlayerButton = document.getElementById("closePlayerButton");
+const playerTitle = document.getElementById("playerTitle");
+const youtubePlayer = document.getElementById("youtubePlayer");
+const openOnYouTubeLink = document.getElementById("openOnYouTubeLink");
+const playerHelpText = document.getElementById("playerHelpText");
 
 function getVideoId(url) {
   try {
@@ -146,7 +153,45 @@ function getCardThumbnail(video) {
 }
 
 function getCardBadge(video) {
-  return video.type === "local" ? "Tarayicida ac" : "YouTube'da ac";
+  return video.type === "local" ? "Tarayicida ac" : "Burada oynat";
+}
+
+function getCardUrl(video) {
+  return video.type === "local" ? encodeURI(video.url) : video.url;
+}
+
+function getYouTubeEmbedUrl(url) {
+  const videoId = getVideoId(url);
+  const origin = window.location.origin;
+  const widgetReferrer = window.location.href;
+
+  return videoId
+    ? `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&origin=${encodeURIComponent(origin)}&widget_referrer=${encodeURIComponent(widgetReferrer)}`
+    : "";
+}
+
+function openPlayer(video) {
+  const embedUrl = getYouTubeEmbedUrl(video.url);
+
+  if (!embedUrl) {
+    return;
+  }
+
+  playerTitle.textContent = video.title;
+  youtubePlayer.src = embedUrl;
+  openOnYouTubeLink.href = video.url;
+  playerHelpText.textContent = "Video burada acilmazsa asagidaki butondan dogrudan YouTube'da izleyebilirsin.";
+  playerModal.classList.remove("hidden");
+  playerModal.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+}
+
+function closePlayer() {
+  youtubePlayer.src = "";
+  openOnYouTubeLink.href = "#";
+  playerModal.classList.add("hidden");
+  playerModal.setAttribute("aria-hidden", "true");
+  document.body.style.overflow = "";
 }
 
 function renderCards(items) {
@@ -161,8 +206,10 @@ function renderCards(items) {
     const badge = fragment.querySelector(".play-badge");
 
     card.style.animationDelay = `${index * 70}ms`;
-    link.href = video.url;
+    link.href = getCardUrl(video);
     link.target = video.type === "local" ? "_self" : "_blank";
+    link.dataset.videoType = video.type;
+    link.dataset.videoIndex = String(index);
     thumbnail.src = getCardThumbnail(video);
     thumbnail.alt = `${video.title} kapak gorseli`;
     title.textContent = video.title;
@@ -194,6 +241,33 @@ function filterVideos(query) {
 
 searchInput.addEventListener("input", (event) => {
   filterVideos(event.target.value);
+});
+
+videoGrid.addEventListener("click", (event) => {
+  const link = event.target.closest(".video-link");
+
+  if (!link) {
+    return;
+  }
+
+  const cardTitle = link.querySelector(".video-title")?.textContent;
+  const selectedVideo = videos.find((video) => video.title === cardTitle);
+
+  if (!selectedVideo || selectedVideo.type !== "youtube") {
+    return;
+  }
+
+  event.preventDefault();
+  openPlayer(selectedVideo);
+});
+
+closePlayerButton.addEventListener("click", closePlayer);
+playerBackdrop.addEventListener("click", closePlayer);
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && !playerModal.classList.contains("hidden")) {
+    closePlayer();
+  }
 });
 
 renderCards(videos);

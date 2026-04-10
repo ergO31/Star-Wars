@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>Star Wars Edit Archive</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -47,9 +48,36 @@
     </section>
   </main>
 
+  <div id="playerModal" class="player-modal hidden" aria-hidden="true">
+    <div id="playerBackdrop" class="player-backdrop"></div>
+    <section class="player-panel" role="dialog" aria-modal="true" aria-labelledby="playerTitle">
+      <div class="player-header">
+        <h2 id="playerTitle">Video oynatici</h2>
+        <button id="closePlayerButton" class="close-player" type="button" aria-label="Oynaticiyi kapat">Kapat</button>
+      </div>
+      <div class="player-frame-wrap">
+        <iframe
+          id="youtubePlayer"
+          class="player-frame"
+          src=""
+          title="YouTube video oynatici"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+        ></iframe>
+      </div>
+      <div class="player-help">
+        <p id="playerHelpText" class="player-help-text">
+          Video acilmazsa asagidaki butondan dogrudan YouTube'da izleyebilirsin.
+        </p>
+        <a id="openOnYouTubeLink" class="open-on-youtube" href="#" target="_blank">YouTube'da ac</a>
+      </div>
+    </section>
+  </div>
+
   <template id="videoCardTemplate">
     <article class="video-card">
-      <a class="video-link" target="_blank" rel="noreferrer">
+      <a class="video-link" href="#">
         <div class="thumbnail-wrap">
           <img class="thumbnail" alt="">
           <span class="play-badge">YouTube'da ac</span>
