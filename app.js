@@ -125,10 +125,12 @@ const translations = {
     pageTitles: {
       index: "Star Wars Edit Archive",
       history: "Star Wars Tarihçe",
+      download: "Star Wars Holocron Archive by Eren",
     },
     menu: {
       home: "Anasayfa",
       history: "Tarihçe",
+      download: "Uygulamayı İndir",
       navigation: "Gezinme",
       toggleAria: "Menüyü aç",
       navAria: "Site menüsü",
@@ -205,15 +207,30 @@ const translations = {
         p2: "Yine de savaşın izleri silinmedi; Outer Rim'de korsanlar, İmparatorluk artığı güçler ve yeni tehditler varlığını sürdürdü. Bu çağ, bir yandan umut ve yeniden inşa dönemi, diğer yandan da galaksinin hâlâ tam anlamıyla iyileşemediği bir geçiş zamanıydı.",
       },
     },
+    download: {
+      hero: {
+        title: "Uygulamayı İndirin!",
+      },
+      windows: {
+        title: "Windows için indir",
+        button: "Windows sürümünü indir",
+      },
+      android: {
+        title: "Android için indir",
+        button: "Yakında",
+      },
+    },
   },
   en: {
     pageTitles: {
       index: "Star Wars Edit Archive",
       history: "Star Wars History",
+      download: "Star Wars Holocron Archive by Eren",
     },
     menu: {
       home: "Home",
       history: "History",
+      download: "Download App",
       navigation: "Navigation",
       toggleAria: "Open menu",
       navAria: "Site menu",
@@ -290,6 +307,19 @@ const translations = {
         p2: "Even so, the scars of war remained; pirates, Imperial holdouts, and new threats still endured in the Outer Rim. This age was both a time of hope and rebuilding, and a reminder that the galaxy had not fully healed.",
       },
     },
+    download: {
+      hero: {
+        title: "Download the App!",
+      },
+      windows: {
+        title: "Download for Windows",
+        button: "Download Windows build",
+      },
+      android: {
+        title: "Download for Android",
+        button: "Coming Soon",
+      },
+    },
   },
 };
 
@@ -324,7 +354,14 @@ function t(path, vars = {}) {
 }
 
 function getPageKey() {
-  return window.location.pathname.toLowerCase().includes("history") ? "history" : "index";
+  const path = window.location.pathname.toLowerCase();
+  if (path.includes("history")) {
+    return "history";
+  }
+  if (path.includes("download")) {
+    return "download";
+  }
+  return "index";
 }
 
 function applyTranslations() {
@@ -443,7 +480,7 @@ function getYouTubeEmbedUrl(url) {
   }
 
   const params = new URLSearchParams({
-    autoplay: "1",
+    autoplay: "0",
     rel: "0",
     playsinline: "1",
     modestbranding: "1",
