@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="theme-color" content="#070b14">
+  <title>Star Wars Holocron Archive by Eren</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="language-switcher">
+    <label class="sr-only" for="languageSelect">Dil seçimi</label>
+    <select id="languageSelect" class="language-select" aria-label="Dil seçimi">
+      <option value="tr">Türkçe</option>
+      <option value="en">English</option>
+    </select>
+  </div>
+
+  <button
+    id="menuToggle"
+    class="menu-toggle"
+    type="button"
+    aria-label="Menüyü aç"
+    aria-expanded="false"
+    aria-controls="siteMenu"
+  >
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <aside id="siteMenu" class="site-menu hidden" aria-hidden="true">
+    <div id="menuBackdrop" class="site-menu-backdrop" data-nav-close></div>
+    <nav class="site-menu-panel" aria-label="Site menüsü">
+      <p class="site-menu-eyebrow" data-i18n="menu.navigation">Navigation</p>
+      <a class="site-menu-link" href="index.html" data-nav-close data-i18n="menu.home">Anasayfa</a>
+      <a class="site-menu-link" href="history.html" data-nav-close data-i18n="menu.history">Tarihçe</a>
+      <a class="site-menu-link" href="download.html" data-nav-close data-i18n="menu.download">Uygulamayı İndir</a>
+    </nav>
+  </aside>
+
+  <div class="background-glow background-glow-left"></div>
+  <div class="background-glow background-glow-right"></div>
+  <div class="starfield starfield-back"></div>
+  <div class="starfield starfield-front"></div>
+
+  <main class="page-shell page-shell-history">
+    <section class="history-hero">
+      <p class="eyebrow">Deployment</p>
+      <h1 data-i18n="download.hero.title">Uygulamayı İndirin!</h1>
+    </section>
+
+    <section class="download-grid">
+      <article class="download-card">
+        <h2 data-i18n="download.windows.title">Windows için indir</h2>
+        <a class="download-link" href="release-tauri/Star-Wars-Holocron-Archive-by-Eren-Setup.exe" data-i18n="download.windows.button">Windows sürümünü indir</a>
+      </article>
+
+      <article class="download-card">
+        <h2 data-i18n="download.android.title">Android için indir</h2>
+        <a class="download-link disabled" href="#" aria-disabled="true" data-i18n="download.android.button">Yakında</a>
+      </article>
+    </section>
+  </main>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
