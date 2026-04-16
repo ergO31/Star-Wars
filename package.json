@@ -1,0 +1,15 @@
+{
+  "name": "star-wars-holocron-archive",
+  "version": "1.0.1",
+  "description": "Star Wars edit archive packaged for web and desktop.",
+  "author": "Eren",
+  "license": "MIT",
+  "scripts": {
+    "tauri": "tauri",
+    "tauri:dev": "tauri dev",
+    "tauri:build": "tauri build"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.1.0"
+  }
+}
