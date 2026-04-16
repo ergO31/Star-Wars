@@ -544,6 +544,58 @@ body.menu-open {
   margin-top: 0.8rem;
 }
 
+.download-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.download-card,
+.download-note {
+  padding: 1.2rem;
+  border: 1px solid rgba(247, 207, 75, 0.12);
+  border-radius: 24px;
+  background: linear-gradient(180deg, rgba(8, 13, 24, 0.8), rgba(4, 8, 16, 0.72));
+  box-shadow: var(--shadow);
+}
+
+.download-card h2,
+.download-note h2 {
+  margin: 0 0 0.8rem;
+  font-size: clamp(1.35rem, 2vw, 1.9rem);
+}
+
+.download-card p,
+.download-note p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+.download-link {
+  display: inline-flex;
+  margin-top: 1rem;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(247, 207, 75, 0.24);
+  background: rgba(247, 207, 75, 0.1);
+  color: var(--text);
+  text-decoration: none;
+}
+
+.download-link.disabled {
+  opacity: 0.72;
+  pointer-events: none;
+}
+
+.download-note {
+  margin-top: 1rem;
+}
+
 .player-modal {
   position: fixed;
   inset: 0;
@@ -768,6 +820,10 @@ body.menu-open {
 
   .timeline-media {
     min-height: 11rem;
+  }
+
+  .download-grid {
+    grid-template-columns: 1fr;
   }
 
 }
